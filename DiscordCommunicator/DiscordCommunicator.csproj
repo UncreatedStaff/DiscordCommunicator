@@ -59,6 +59,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="UncreatedLib, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\source\repos\UncreatedLib\Uncreated\bin\Debug\UncreatedLib.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\SteamCMD\unturned\Unturned_Data\Managed\UnityEngine.dll</HintPath>
@@ -69,7 +73,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommunicationInterface.cs" />
     <Compile Include="DiscordInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

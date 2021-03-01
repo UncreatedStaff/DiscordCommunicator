@@ -1,17 +1,11 @@
 ﻿using Rocket.Core.Plugins;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using static Rocket.Core.Logging.Logger;
-using static DiscordCommunicator.CommunicationInterface;
 using System.IO.MemoryMappedFiles;
 using SDG.Unturned;
-using Rocket.Core;
-using Rocket.Unturned;
+using UncreatedLib;
 
 namespace DiscordCommunicator
 {
@@ -30,7 +24,7 @@ namespace DiscordCommunicator
         }
         protected override void Unload()
         {
-            SendData(new FPlayerList(ExtendArray(new string[] { "OFFLINE", "INTENTIONAL" }, MaxPlayerCount), DateTime.Now));
+            SendData(new FPlayerList(MMFInterface.ExtendArray(new string[] { "OFFLINE", "INTENTIONAL" }, MMFInterface.MaxPlayerCount), DateTime.Now));
             base.Unload();
         }
         private IEnumerator WaitAndPrint(float waitTime)
@@ -74,14 +68,14 @@ namespace DiscordCommunicator
         }
         private void SendData(FPlayerList fPlayerList)
         {
-            MemoryMappedFile mmf = MemoryMappedFile.CreateOrOpen("discord-to-server-mmf", CommunicationInterface.Length);
+            MemoryMappedFile mmf = MemoryMappedFile.CreateOrOpen(this.Configuration.Instance.mmfName, MMFInterface.Length);
             MemoryMappedViewAccessor BotAccessor = mmf.CreateViewAccessor();
-            MemoryMappedFile handler = MemoryMappedFile.CreateOrOpen("discord-to-server-mmf-handler", 1);
+            MemoryMappedFile handler = MemoryMappedFile.CreateOrOpen(this.Configuration.Instance.mmfName + "-handler", 1);
             MemoryMappedViewAccessor HandlerAccessor = handler.CreateViewAccessor();
-            byte[] send = new byte[CommunicationInterface.MaxPlayerCount];
+            byte[] send = new byte[MMFInterface.MaxPlayerCount];
             try
             {
-                send = EncodeMessage(fPlayerList);
+                send = MMFInterface.EncodeMessage(fPlayerList);
             }
             catch (Exception ex)
             {
@@ -98,7 +92,7 @@ namespace DiscordCommunicator
             {
                 players[i] = Provider.clients[i].playerID.nickName;
             }
-            return new FPlayerList(ExtendArray(players, MaxPlayerCount), DateTime.Now);
+            return new FPlayerList(MMFInterface.ExtendArray(players, MMFInterface.MaxPlayerCount), DateTime.Now);
         }
     }
 }
