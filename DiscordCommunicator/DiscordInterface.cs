@@ -19,7 +19,7 @@ namespace DiscordCommunicator
             coroutine = WaitAndPrint(Configuration.Instance.RefreshRateSeconds);
             StartCoroutine(coroutine);
             Log("Started loop at game time: " + Time.time + " seconds. " +
-                "Will refresh every " + Configuration.Instance.RefreshRateSeconds.ToString() + "seconds."
+                "Will refresh every " + Configuration.Instance.RefreshRateSeconds.ToString() + " seconds."
             );
         }
         protected override void Unload()
